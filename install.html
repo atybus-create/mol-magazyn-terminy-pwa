@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MOL Magazyn">
+  <title>Zainstaluj MOL Magazyn</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#0b1220;color:#e5e7eb;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{display:grid;place-items:center;padding:24px}.card{width:min(440px,100%);background:#111827;border:1px solid #243044;border-radius:24px;padding:28px;box-shadow:0 20px 60px #0008;text-align:center}
+    .logo{width:92px;height:92px;border-radius:24px;margin:0 auto 18px;display:grid;place-items:center;background:#16a34a;color:white;font-size:24px;font-weight:900;letter-spacing:.08em;box-shadow:0 10px 30px #16a34a33}
+    h1{margin:0 0 8px;font-size:28px}p{margin:0 0 18px;color:#94a3b8;line-height:1.45}.install{width:100%;border:0;border-radius:16px;padding:16px 18px;background:#22c55e;color:#052e16;font-size:17px;font-weight:900;cursor:pointer}.install:disabled{background:#334155;color:#94a3b8;cursor:default}.open{display:block;margin-top:12px;padding:14px 16px;border-radius:16px;background:#1f2937;color:#fff;text-decoration:none;font-weight:800}.help{margin-top:18px;padding:14px;border-radius:14px;background:#0f172a;text-align:left;font-size:13px;line-height:1.5;color:#cbd5e1}.ok{color:#86efac}.warn{color:#fde68a}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="logo">MOL</div>
+    <h1>MOL Magazyn</h1>
+    <p>Zainstaluj aplikację jako ikonę na pulpicie telefonu.</p>
+    <button id="installBtn" class="install" type="button" disabled>Przygotowuję instalację…</button>
+    <a class="open" href="./">Otwórz aplikację</a>
+    <div id="help" class="help">Jeśli przycisk instalacji nie pojawi się, w Chrome otwórz menu <b>⋮</b> i wybierz <b>Zainstaluj aplikację</b> albo <b>Dodaj do ekranu głównego</b>.</div>
+  </main>
+  <script>
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+    const btn=document.getElementById('installBtn');
+    const help=document.getElementById('help');
+    let deferredPrompt=null;
+    window.addEventListener('beforeinstallprompt',e=>{
+      e.preventDefault();
+      deferredPrompt=e;
+      btn.disabled=false;
+      btn.textContent='Zainstaluj MOL Magazyn';
+      help.innerHTML='<span class="ok">Aplikacja jest gotowa do instalacji.</span> Kliknij zielony przycisk.';
+    });
+    btn.addEventListener('click',async()=>{
+      if(!deferredPrompt)return;
+      btn.disabled=true;
+      deferredPrompt.prompt();
+      const choice=await deferredPrompt.userChoice;
+      deferredPrompt=null;
+      if(choice.outcome==='accepted'){
+        btn.textContent='Zainstalowano';
+        help.innerHTML='<span class="ok">Gotowe.</span> Ikona MOL Magazyn powinna pojawić się na pulpicie telefonu.';
+      }else{
+        btn.disabled=false;
+        btn.textContent='Zainstaluj MOL Magazyn';
+      }
+    });
+    window.addEventListener('appinstalled',()=>{
+      btn.disabled=true;
+      btn.textContent='Zainstalowano';
+      help.innerHTML='<span class="ok">Aplikacja została zainstalowana.</span> Możesz uruchamiać ją z ikony na pulpicie.';
+    });
+    setTimeout(()=>{
+      if(!deferredPrompt){
+        btn.disabled=true;
+        btn.textContent='Instalacja przez menu Chrome';
+        help.innerHTML='<span class="warn">Chrome nie udostępnił automatycznego przycisku.</span> Otwórz menu <b>⋮</b> i wybierz <b>Zainstaluj aplikację</b> albo <b>Dodaj do ekranu głównego</b>.';
+      }
+    },2500);
+  </script>
+</body>
+</html>
