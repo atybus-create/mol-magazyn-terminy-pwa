@@ -1,4 +1,4 @@
-const CACHE='mol-magazyn-shell-v3';
+const CACHE='mol-magazyn-shell-v4';
 const PREFIX='mol-magazyn-shell-';
 const SHELL=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 
@@ -18,28 +18,9 @@ self.addEventListener('fetch',event=>{
   const url=new URL(event.request.url);
   if(url.origin!==self.location.origin)return;
   if(event.request.method!=='GET')return;
-
   if(event.request.mode==='navigate'){
-    event.respondWith(
-      fetch(event.request)
-        .then(response=>{
-          const copy=response.clone();
-          caches.open(CACHE).then(cache=>cache.put('./index.html',copy));
-          return response;
-        })
-        .catch(()=>caches.match('./index.html'))
-    );
+    event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put('./index.html',copy));return response;}).catch(()=>caches.match('./index.html')));
     return;
   }
-
-  event.respondWith(
-    caches.match(event.request).then(cached=>{
-      if(cached)return cached;
-      return fetch(event.request).then(response=>{
-        const copy=response.clone();
-        caches.open(CACHE).then(cache=>cache.put(event.request,copy));
-        return response;
-      });
-    })
-  );
+  event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response;})));
 });
