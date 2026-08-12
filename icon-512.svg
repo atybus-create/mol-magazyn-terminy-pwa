@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#0b1220"/>
+  <rect x="90" y="120" width="332" height="272" rx="42" fill="#142033" stroke="#2dd4bf" stroke-width="16"/>
+  <path d="M130 192h252M130 256h252M130 320h154" stroke="#dbeafe" stroke-width="22" stroke-linecap="round"/>
+  <rect x="316" y="292" width="82" height="72" rx="16" fill="#2dd4bf"/>
+  <path d="M338 326l16 16 28-36" fill="none" stroke="#0b1220" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="256" y="454" text-anchor="middle" font-family="Arial,sans-serif" font-size="58" font-weight="700" fill="#ffffff">MOL</text>
+</svg>
