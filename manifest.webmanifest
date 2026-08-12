@@ -1,0 +1,26 @@
+{
+  "name": "MOL Magazyn",
+  "short_name": "MOL Magazyn",
+  "description": "Aplikacja magazynowa MOL do spisywania terminów przydatności i partii produktów.",
+  "id": "/mol-magazyn-terminy-pwa/",
+  "start_url": "/mol-magazyn-terminy-pwa/",
+  "scope": "/mol-magazyn-terminy-pwa/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "./icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
