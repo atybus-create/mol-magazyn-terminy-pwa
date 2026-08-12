@@ -1,6 +1,6 @@
-const CACHE='mol-magazyn-shell-v1';
+const CACHE='mol-magazyn-shell-v2';
 const PREFIX='mol-magazyn-shell-';
-const SHELL=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./icon-192.svg','./icon-512.svg'];
+const SHELL=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
