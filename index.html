@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MOL Magazyn">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>MOL Magazyn</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon-192.svg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="offline" class="offline">Brak połączenia z serwerem.</div>
+
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div class="loader-panel">
+      <div class="loader-mark">MOL</div>
+      <h2>Uruchamiam MOL Magazyn</h2>
+      <p>Przygotowuję skaner i połączenie z n8n.</p>
+      <div class="bar"><span></span></div>
+    </div>
+  </div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <h1>MOL Magazyn</h1>
+        <p>Spisywanie terminów i partii</p>
+      </div>
+      <div id="connectionBadge" class="badge">Łączenie…</div>
+    </header>
+
+    <section id="eanCard" class="card">
+      <div class="step-title"><span class="step-number">1</span><h2>Zeskanuj EAN</h2></div>
+      <p class="hint">Skaner powinien zakończyć odczyt klawiszem Enter.</p>
+      <input id="eanInput" class="scan-input" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="EAN">
+      <div id="eanStatus" class="status info hidden"></div>
+      <div id="productData" class="grid2 hidden" style="margin-top:10px">
+        <div class="data-box"><small>SKU</small><strong id="skuValue">—</strong></div>
+        <div class="data-box"><small>Marka</small><strong id="brandValue">—</strong></div>
+        <div class="data-box" style="grid-column:1/-1"><small>Produkt</small><strong id="nameValue">—</strong></div>
+      </div>
+    </section>
+
+    <section id="photoCard" class="card">
+      <div class="step-title"><span class="step-number">2</span><h2>Zrób zdjęcie partii / terminu</h2></div>
+      <p class="hint">Jedno zdjęcie. Powinien być widoczny termin, data produkcji lub kod partii.</p>
+      <div class="photo-wrap">
+        <label class="photo-label" for="photoInput">📷 Zrób zdjęcie
+          <input id="photoInput" type="file" accept="image/*" capture="environment">
+        </label>
+        <div id="fileName" class="file-name"></div>
+        <button id="analyzeBtn" class="secondary" type="button" disabled>Analizuj zdjęcie</button>
+      </div>
+      <div id="analysisStatus" class="status info hidden"></div>
+      <div id="analysisData" class="grid2 hidden" style="margin-top:10px">
+        <div class="data-box"><small>Partia</small><strong id="batchValue">—</strong></div>
+        <div class="data-box"><small>Data produkcji</small><strong id="productionValue">—</strong></div>
+        <div class="data-box"><small>Trwałość</small><strong id="shelfValue">—</strong></div>
+        <div class="data-box"><small>Termin przydatności</small><strong id="expiryValue">—</strong></div>
+        <div class="data-box" style="grid-column:1/-1"><small>Status</small><strong id="decodeStatusValue">—</strong></div>
+      </div>
+    </section>
+
+    <section id="locationCard" class="card">
+      <div class="step-title"><span class="step-number">3</span><h2>Zeskanuj lokalizację</h2></div>
+      <input id="locationInput" class="scan-input" type="text" autocomplete="off" enterkeyhint="done" placeholder="np. 01-01-11">
+      <div id="locationStatus" class="status info hidden"></div>
+      <div id="locationData" class="grid2 hidden" style="margin-top:10px">
+        <div class="data-box"><small>Lokalizacja</small><strong id="locationValue">—</strong></div>
+        <div class="data-box"><small>Strefa</small><strong id="zoneValue">—</strong></div>
+      </div>
+    </section>
+
+    <section id="qtyCard" class="card">
+      <div class="step-title"><span class="step-number">4</span><h2>Podaj ilość</h2></div>
+      <input id="qtyInput" class="qty-input" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Ilość">
+    </section>
+
+    <section id="saveCard" class="card save-card">
+      <p id="saveSummary" class="save-summary">Uzupełnij wszystkie kroki.</p>
+      <button id="saveBtn" class="primary" type="button" disabled>Zapisz rekord</button>
+      <div id="saveStatus" class="status info hidden"></div>
+    </section>
+  </main>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
