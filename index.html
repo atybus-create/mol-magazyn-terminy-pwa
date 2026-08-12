@@ -6,4 +6,104 @@
   <meta name="theme-color" content="#0b1220">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MOL Magazyn">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>MOL Magazyn</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="offline" class="offline">Brak połączenia z serwerem.</div>
+
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div class="loader-panel">
+      <div class="loader-mark">MOL</div>
+      <h2>Uruchamiam MOL Magazyn</h2>
+      <p>Przygotowuję skaner i połączenie z n8n.</p>
+      <div class="bar"><span></span></div>
+    </div>
+  </div>
+
+  <div id="processing" class="processing hidden" role="status" aria-live="polite">
+    <div class="processing-box">
+      <div class="spinner"></div>
+      <h2 id="processingTitle">Przetwarzam</h2>
+      <p id="processingMsg">Proszę czekać…</p>
+      <p id="processingTime" class="processing-time">0 s</p>
+      <p id="processingWarn" class="processing-warn hidden">Operacja trwa dłużej niż zwykle, ale nadal jest przetwarzana.</p>
+    </div>
+  </div>
+
+  <main class="app-shell">
+    <header class="app-header">
+      <div><h1>MOL Magazyn</h1><p id="stepLabel">Krok 1 z 4</p></div>
+      <div id="connectionBadge" class="badge">Łączenie…</div>
+    </header>
+    <div class="progress"><span id="progressBar"></span></div>
+
+    <section id="screenEan" class="screen active" data-step="1">
+      <div class="screen-icon">1</div>
+      <h2>Zeskanuj EAN</h2>
+      <p class="lead">Zeskanuj kod produktu. Skaner powinien zakończyć odczyt klawiszem Enter.</p>
+      <input id="eanInput" class="hero-input" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="EAN" autofocus>
+      <div id="eanStatus" class="status hidden"></div>
+      <div id="productPreview" class="result-card hidden">
+        <div><small>SKU</small><strong id="skuValue">—</strong></div>
+        <div><small>Marka</small><strong id="brandValue">—</strong></div>
+        <div class="wide"><small>Produkt</small><strong id="nameValue">—</strong></div>
+      </div>
+    </section>
+
+    <section id="screenPhoto" class="screen" data-step="2">
+      <div class="screen-icon">2</div>
+      <h2>Zrób zdjęcie</h2>
+      <p class="lead">Na jednym zdjęciu pokaż termin, datę produkcji lub kod partii.</p>
+      <label class="camera-button" for="photoInput">📷 Zrób zdjęcie<input id="photoInput" type="file" accept="image/*" capture="environment"></label>
+      <p id="fileName" class="file-name"></p>
+      <div id="analysisStatus" class="status hidden"></div>
+      <div id="analysisPreview" class="result-card hidden">
+        <div><small>Partia</small><strong id="batchValue">—</strong></div>
+        <div><small>Data produkcji</small><strong id="productionValue">—</strong></div>
+        <div><small>Trwałość</small><strong id="shelfValue">—</strong></div>
+        <div><small>Termin</small><strong id="expiryValue">—</strong></div>
+        <div class="wide"><small>Status</small><strong id="decodeStatusValue">—</strong></div>
+      </div>
+      <button id="retryPhotoBtn" class="secondary hidden" type="button">Zrób nowe zdjęcie</button>
+    </section>
+
+    <section id="screenLocation" class="screen" data-step="3">
+      <div class="screen-icon">3</div>
+      <h2>Zeskanuj lokalizację</h2>
+      <p class="lead">Zeskanuj kod lokalizacji i zatwierdź Enterem.</p>
+      <input id="locationInput" class="hero-input" type="text" autocomplete="off" enterkeyhint="done" placeholder="np. 01-01-11">
+      <div id="locationStatus" class="status hidden"></div>
+      <div id="locationPreview" class="result-card hidden">
+        <div><small>Lokalizacja</small><strong id="locationValue">—</strong></div>
+        <div><small>Strefa</small><strong id="zoneValue">—</strong></div>
+      </div>
+    </section>
+
+    <section id="screenQuantity" class="screen" data-step="4">
+      <div class="screen-icon">4</div>
+      <h2>Podaj ilość</h2>
+      <p class="lead">Wpisz fizycznie policzoną ilość produktu.</p>
+      <input id="qtyInput" class="hero-input" type="number" inputmode="decimal" min="0.01" step="0.01" enterkeyhint="done" placeholder="Ilość">
+      <div id="qtyStatus" class="status hidden"></div>
+      <div id="reviewCard" class="review-card"><h3>Dane do zapisu</h3><div id="reviewRows"></div></div>
+      <button id="saveBtn" class="primary" type="button" disabled>Zapisz do pliku</button>
+    </section>
+
+    <section id="screenDone" class="screen done-screen" data-step="5">
+      <div class="success-icon">✓</div>
+      <h2>Zapis zakończony</h2>
+      <p class="lead success-text">Komplet danych został wyeksportowany do pliku.</p>
+      <div id="finalData" class="final-data"></div>
+      <button id="nextProductBtn" class="primary" type="button">Kolejny produkt</button>
+    </section>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>
