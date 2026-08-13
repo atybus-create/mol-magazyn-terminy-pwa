@@ -60,9 +60,17 @@
     <section id="screenPhoto" class="screen" data-step="2">
       <div class="screen-icon">2</div>
       <h2>Zrób zdjęcie</h2>
-      <p class="lead">Na jednym zdjęciu pokaż termin, datę produkcji lub kod partii.</p>
+      <p class="lead">Na jednym zdjęciu pokaż termin, datę produkcji lub kod partii albo wpisz znaną datę przydatności ręcznie.</p>
       <label class="camera-button" for="photoInput">📷 Zrób zdjęcie<input id="photoInput" type="file" accept="image/*" capture="environment"></label>
       <p id="fileName" class="file-name"></p>
+
+      <div class="manual-expiry">
+        <div class="manual-expiry-divider"><span>lub</span></div>
+        <label class="manual-expiry-label" for="manualExpiryInput">Wpisz datę przydatności ręcznie</label>
+        <input id="manualExpiryInput" class="hero-input manual-expiry-input" type="date" autocomplete="off">
+        <button id="manualExpiryBtn" class="secondary" type="button" disabled>Użyj tej daty</button>
+      </div>
+
       <div id="analysisStatus" class="status hidden"></div>
       <div id="analysisPreview" class="result-card hidden">
         <div><small>Partia</small><strong id="batchValue">—</strong></div>
