@@ -1,4 +1,4 @@
-const CACHE='mol-magazyn-shell-v7';
+const CACHE='mol-magazyn-shell-v8';
 const PREFIX='mol-magazyn-shell-';
 
 const SHELL=[
