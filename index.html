@@ -3,115 +3,644 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1220">
+  <meta name="theme-color" content="#0d0d10">
+
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="MOL Magazyn">
   <meta name="robots" content="noindex,nofollow,noarchive">
+
   <title>MOL Magazyn</title>
+
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
-  <div id="offline" class="offline">Brak połączenia z serwerem.</div>
+
+  <div id="offline" class="offline">
+    Brak połączenia z serwerem.
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- EKRAN STARTOWY / LOADER   -->
+  <!-- ========================= -->
 
   <div id="loader" class="loader" role="status" aria-live="polite">
+
     <div class="loader-panel">
-      <div class="loader-mark">MOL</div>
-      <h2>Uruchamiam MOL Magazyn</h2>
-      <p>Przygotowuję skaner i połączenie z n8n.</p>
-      <div class="bar"><span></span></div>
+
+      <div class="loader-brand-top">
+        <div class="brand-wordmark">
+          ESTYL<span>.pl</span>
+        </div>
+
+        <div class="brand-subtitle">
+          MOL <b>//</b> Terminy
+        </div>
+      </div>
+
+      <div class="loader-orbit">
+        <div class="loader-mark">
+          ESTYL<span>.pl</span>
+        </div>
+      </div>
+
+      <h2>MOL Magazyn</h2>
+
+      <p>
+        Uruchamiam narzędzie dekodowania partii
+      </p>
+
+      <div class="bar">
+        <span></span>
+      </div>
+
+      <div class="loader-status">
+        <i></i>
+        Łączenie z systemem…
+      </div>
+
     </div>
+
   </div>
 
-  <div id="processing" class="processing hidden" role="status" aria-live="polite">
+
+  <!-- ========================= -->
+  <!-- OVERLAY PRZETWARZANIA     -->
+  <!-- ========================= -->
+
+  <div id="processing"
+       class="processing hidden"
+       role="status"
+       aria-live="polite">
+
     <div class="processing-box">
+
       <div class="spinner"></div>
-      <h2 id="processingTitle">Przetwarzam</h2>
-      <p id="processingMsg">Proszę czekać…</p>
-      <p id="processingTime" class="processing-time">0 s</p>
-      <p id="processingWarn" class="processing-warn hidden">Operacja trwa dłużej niż zwykle, ale nadal jest przetwarzana.</p>
+
+      <h2 id="processingTitle">
+        Przetwarzam
+      </h2>
+
+      <p id="processingMsg">
+        Proszę czekać…
+      </p>
+
+      <p id="processingTime"
+         class="processing-time">
+        0 s
+      </p>
+
+      <p id="processingWarn"
+         class="processing-warn hidden">
+        Operacja trwa dłużej niż zwykle, ale nadal jest przetwarzana.
+      </p>
+
     </div>
+
   </div>
+
+
+
+  <!-- ========================= -->
+  <!-- APLIKACJA                 -->
+  <!-- ========================= -->
 
   <main class="app-shell">
-    <header class="app-header">
-      <div><h1>MOL Magazyn</h1><p id="stepLabel">Krok 1 z 4</p></div>
-      <div id="connectionBadge" class="badge">Łączenie…</div>
-    </header>
-    <div class="progress"><span id="progressBar"></span></div>
 
-    <section id="screenEan" class="screen active" data-step="1">
-      <div class="screen-icon">1</div>
-      <h2>Zeskanuj EAN</h2>
-      <p class="lead">Zeskanuj kod produktu. Skaner powinien zakończyć odczyt klawiszem Enter.</p>
-      <input id="eanInput" class="hero-input" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="EAN" autofocus>
-      <div id="eanStatus" class="status hidden"></div>
-      <div id="productPreview" class="result-card hidden">
-        <div><small>SKU</small><strong id="skuValue">—</strong></div>
-        <div><small>Marka</small><strong id="brandValue">—</strong></div>
-        <div class="wide"><small>Produkt</small><strong id="nameValue">—</strong></div>
+    <header class="app-header">
+
+      <div class="brand-block">
+
+        <div class="brand-wordmark">
+          ESTYL<span>.pl</span>
+        </div>
+
+        <div class="brand-subtitle">
+          MOL <b>//</b> Terminy
+        </div>
+
       </div>
+
+      <div id="connectionBadge"
+           class="badge">
+        Łączenie…
+      </div>
+
+    </header>
+
+
+    <div class="workflow-head">
+
+      <p id="stepLabel"
+         class="step-label">
+        Krok 1 z 4
+      </p>
+
+      <div class="progress">
+        <span id="progressBar"></span>
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- KROK 1 — EAN              -->
+    <!-- ========================= -->
+
+    <section id="screenEan"
+             class="screen active"
+             data-step="1">
+
+      <div class="screen-icon">
+        1
+      </div>
+
+      <h2>
+        Zeskanuj EAN
+      </h2>
+
+      <p class="lead">
+        Zeskanuj kod produktu.
+        Skaner powinien zakończyć odczyt klawiszem Enter.
+      </p>
+
+
+      <div class="input-block">
+
+        <input
+          id="eanInput"
+          class="hero-input"
+          type="text"
+          inputmode="numeric"
+          autocomplete="off"
+          enterkeyhint="done"
+          placeholder="EAN"
+          autofocus
+        >
+
+        <span class="input-symbol barcode-symbol">
+          ||||
+        </span>
+
+      </div>
+
+
+      <div id="eanStatus"
+           class="status hidden">
+      </div>
+
+
+      <div id="productPreview"
+           class="result-card product-card hidden">
+
+        <div>
+
+          <small>
+            SKU
+          </small>
+
+          <strong id="skuValue">
+            —
+          </strong>
+
+        </div>
+
+        <div>
+
+          <small>
+            Marka
+          </small>
+
+          <strong id="brandValue">
+            —
+          </strong>
+
+        </div>
+
+        <div class="wide">
+
+          <small>
+            Produkt
+          </small>
+
+          <strong id="nameValue">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
     </section>
 
-    <section id="screenPhoto" class="screen" data-step="2">
-      <div class="screen-icon">2</div>
-      <h2>Zrób zdjęcie</h2>
-      <p class="lead">Na jednym zdjęciu pokaż termin, datę produkcji lub kod partii albo wpisz znaną datę przydatności ręcznie.</p>
-      <label class="camera-button" for="photoInput">📷 Zrób zdjęcie<input id="photoInput" type="file" accept="image/*" capture="environment"></label>
-      <p id="fileName" class="file-name"></p>
+
+
+    <!-- ========================= -->
+    <!-- KROK 2 — TERMIN / PARTIA  -->
+    <!-- ========================= -->
+
+    <section id="screenPhoto"
+             class="screen"
+             data-step="2">
+
+      <div class="screen-icon">
+        2
+      </div>
+
+      <h2>
+        Termin / partia
+      </h2>
+
+      <p class="lead">
+        Zrób zdjęcie kodu partii, daty produkcji lub terminu przydatności.
+        Jeśli znasz termin — możesz wpisać go ręcznie.
+      </p>
+
+
+      <!-- FOTO -->
+
+      <label class="camera-button"
+             for="photoInput">
+
+        <span class="action-icon">
+          ◉
+        </span>
+
+        <span class="action-copy">
+
+          <strong>
+            Zrób zdjęcie
+          </strong>
+
+          <small>
+            Analiza przez dekoder
+          </small>
+
+        </span>
+
+        <span class="action-arrow">
+          →
+        </span>
+
+        <input
+          id="photoInput"
+          type="file"
+          accept="image/*"
+          capture="environment"
+        >
+
+      </label>
+
+
+      <p id="fileName"
+         class="file-name">
+      </p>
+
+
+
+      <!-- RĘCZNA DATA -->
 
       <div class="manual-expiry">
-        <div class="manual-expiry-divider"><span>lub</span></div>
-        <label class="manual-expiry-label" for="manualExpiryInput">Wpisz datę przydatności ręcznie</label>
-        <input id="manualExpiryInput" class="hero-input manual-expiry-input" type="date" autocomplete="off">
-        <button id="manualExpiryBtn" class="secondary" type="button" disabled>Użyj tej daty</button>
+
+        <div class="manual-expiry-head">
+
+          <span class="action-icon">
+            ◫
+          </span>
+
+          <span class="action-copy">
+
+            <strong>
+              Wpisz datę ręcznie
+            </strong>
+
+            <small>
+              Jeśli znasz termin przydatności
+            </small>
+
+          </span>
+
+        </div>
+
+
+        <label
+          class="manual-expiry-label"
+          for="manualExpiryInput">
+
+          Data przydatności
+
+        </label>
+
+
+        <input
+          id="manualExpiryInput"
+          class="hero-input manual-expiry-input"
+          type="date"
+          autocomplete="off"
+        >
+
+
+        <button
+          id="manualExpiryBtn"
+          class="secondary"
+          type="button"
+          disabled>
+
+          Użyj tej daty
+
+        </button>
+
       </div>
 
-      <div id="analysisStatus" class="status hidden"></div>
-      <div id="analysisPreview" class="result-card hidden">
-        <div><small>Partia</small><strong id="batchValue">—</strong></div>
-        <div><small>Data produkcji</small><strong id="productionValue">—</strong></div>
-        <div><small>Trwałość</small><strong id="shelfValue">—</strong></div>
-        <div><small>Termin</small><strong id="expiryValue">—</strong></div>
-        <div class="wide"><small>Status</small><strong id="decodeStatusValue">—</strong></div>
+
+
+      <!-- STATUS ANALIZY -->
+
+      <div id="analysisStatus"
+           class="status hidden">
       </div>
-      <button id="retryPhotoBtn" class="secondary hidden" type="button">Zrób nowe zdjęcie</button>
-    </section>
 
-    <section id="screenLocation" class="screen" data-step="3">
-      <div class="screen-icon">3</div>
-      <h2>Zeskanuj lokalizację</h2>
-      <p class="lead">Zeskanuj kod lokalizacji i zatwierdź Enterem.</p>
-      <input id="locationInput" class="hero-input" type="text" autocomplete="off" enterkeyhint="done" placeholder="np. 01-01-11">
-      <div id="locationStatus" class="status hidden"></div>
-      <div id="locationPreview" class="result-card hidden">
-        <div><small>Lokalizacja</small><strong id="locationValue">—</strong></div>
-        <div><small>Strefa</small><strong id="zoneValue">—</strong></div>
+
+
+      <!-- WYNIK -->
+
+      <div id="analysisPreview"
+           class="result-card analysis-card hidden">
+
+        <div>
+
+          <small>
+            Partia
+          </small>
+
+          <strong id="batchValue">
+            —
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <small>
+            Data produkcji
+          </small>
+
+          <strong id="productionValue">
+            —
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <small>
+            Trwałość
+          </small>
+
+          <strong id="shelfValue">
+            —
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <small>
+            Termin
+          </small>
+
+          <strong id="expiryValue">
+            —
+          </strong>
+
+        </div>
+
+
+        <div class="wide status-result">
+
+          <small>
+            Status
+          </small>
+
+          <strong id="decodeStatusValue">
+            —
+          </strong>
+
+        </div>
+
       </div>
+
+
+      <button
+        id="retryPhotoBtn"
+        class="secondary retry-button hidden"
+        type="button">
+
+        Zrób nowe zdjęcie
+
+      </button>
+
     </section>
 
-    <section id="screenQuantity" class="screen" data-step="4">
-      <div class="screen-icon">4</div>
-      <h2>Podaj ilość</h2>
-      <p class="lead">Wpisz fizycznie policzoną ilość produktu.</p>
-      <input id="qtyInput" class="hero-input" type="number" inputmode="decimal" min="0.01" step="0.01" enterkeyhint="done" placeholder="Ilość">
-      <div id="qtyStatus" class="status hidden"></div>
-      <div id="reviewCard" class="review-card"><h3>Dane do zapisu</h3><div id="reviewRows"></div></div>
-      <button id="saveBtn" class="primary" type="button" disabled>Zapisz do pliku</button>
+
+
+    <!-- ========================= -->
+    <!-- KROK 3 — LOKALIZACJA      -->
+    <!-- ========================= -->
+
+    <section id="screenLocation"
+             class="screen"
+             data-step="3">
+
+      <div class="screen-icon">
+        3
+      </div>
+
+      <h2>
+        Zeskanuj lokalizację
+      </h2>
+
+      <p class="lead">
+        Zeskanuj kod lokalizacji i zatwierdź Enterem.
+      </p>
+
+
+      <div class="input-block">
+
+        <input
+          id="locationInput"
+          class="hero-input"
+          type="text"
+          autocomplete="off"
+          enterkeyhint="done"
+          placeholder="np. 01-01-11"
+        >
+
+        <span class="input-symbol">
+          ⌖
+        </span>
+
+      </div>
+
+
+      <div id="locationStatus"
+           class="status hidden">
+      </div>
+
+
+      <div id="locationPreview"
+           class="result-card location-card hidden">
+
+        <div>
+
+          <small>
+            Lokalizacja
+          </small>
+
+          <strong id="locationValue">
+            —
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <small>
+            Strefa
+          </small>
+
+          <strong id="zoneValue">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
     </section>
 
-    <section id="screenDone" class="screen done-screen" data-step="5">
-      <div class="success-icon">✓</div>
-      <h2>Zapis zakończony</h2>
-      <p class="lead success-text">Komplet danych został wyeksportowany do pliku.</p>
-      <div id="finalData" class="final-data"></div>
-      <button id="nextProductBtn" class="primary" type="button">Kolejny produkt</button>
+
+
+    <!-- ========================= -->
+    <!-- KROK 4 — ILOŚĆ            -->
+    <!-- ========================= -->
+
+    <section id="screenQuantity"
+             class="screen"
+             data-step="4">
+
+      <div class="screen-icon">
+        4
+      </div>
+
+      <h2>
+        Podaj ilość
+      </h2>
+
+      <p class="lead">
+        Wpisz fizycznie policzoną ilość produktu.
+      </p>
+
+
+      <input
+        id="qtyInput"
+        class="hero-input qty-input"
+        type="number"
+        inputmode="decimal"
+        min="0.01"
+        step="0.01"
+        enterkeyhint="done"
+        placeholder="Ilość"
+      >
+
+
+      <div id="qtyStatus"
+           class="status hidden">
+      </div>
+
+
+      <div id="reviewCard"
+           class="review-card">
+
+        <h3>
+          Dane do zapisu
+        </h3>
+
+        <div id="reviewRows">
+        </div>
+
+      </div>
+
+
+      <button
+        id="saveBtn"
+        class="primary"
+        type="button"
+        disabled>
+
+        Zapisz do pliku
+
+      </button>
+
     </section>
+
+
+
+    <!-- ========================= -->
+    <!-- SUKCES                    -->
+    <!-- ========================= -->
+
+    <section id="screenDone"
+             class="screen done-screen"
+             data-step="5">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+
+      <h2>
+        Zapisano poprawnie
+      </h2>
+
+
+      <p class="lead success-text">
+        Dane zostały wyeksportowane do pliku.
+      </p>
+
+
+      <div id="finalData"
+           class="final-data">
+      </div>
+
+
+      <button
+        id="nextProductBtn"
+        class="primary next-product"
+        type="button">
+
+        Skanuj kolejny produkt
+
+      </button>
+
+    </section>
+
+
   </main>
+
+
   <script src="./app.js" defer></script>
+
 </body>
 </html>
