@@ -1,0 +1,14 @@
+{
+  "name": "MOL Batch Reader",
+  "short_name": "Batch Reader",
+  "description": "Proste narzędzie MOL do rozpoznawania partii i terminu produktu.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eefbf7",
+  "theme_color": "#e9fbf6",
+  "icons": [
+    {"src":"../icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"../icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}
