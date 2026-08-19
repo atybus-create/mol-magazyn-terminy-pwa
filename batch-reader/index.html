@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#e9fbf6">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Batch Reader">
+  <title>MOL // Batch Reader</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="../icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="../icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="offline" class="offline">Brak połączenia z serwerem</div>
+
+  <div id="processing" class="processing hidden" role="status" aria-live="polite">
+    <div class="processing-card">
+      <div class="scan-orbit"><span></span></div>
+      <h2 id="processingTitle">Przetwarzam</h2>
+      <p id="processingMsg">Proszę czekać…</p>
+      <b id="processingTime">0 s</b>
+    </div>
+  </div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">ESTYL.PL · MOL</div>
+        <h1>Batch Reader</h1>
+      </div>
+      <span id="connectionBadge" class="connection">online</span>
+    </header>
+
+    <div class="steps" aria-hidden="true">
+      <span id="step1" class="step active">1</span><i></i><span id="step2" class="step">2</span><i></i><span id="step3" class="step">3</span>
+    </div>
+
+    <section id="screenEan" class="screen active">
+      <div class="hero-icon">⌁</div>
+      <p class="kicker">KROK 1</p>
+      <h2>Zeskanuj produkt</h2>
+      <p class="lead">Skan EAN identyfikuje produkt. Niczego nie zapisujemy.</p>
+      <div class="ean-wrap">
+        <input id="eanInput" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="EAN" autofocus>
+        <span>||||</span>
+      </div>
+      <div id="eanStatus" class="status hidden"></div>
+      <div id="productCard" class="product-card hidden">
+        <small>ROZPOZNANO</small>
+        <strong id="productName">—</strong>
+        <div><span id="productBrand">—</span><b id="productSku">—</b></div>
+      </div>
+    </section>
+
+    <section id="screenPhoto" class="screen">
+      <div class="hero-icon camera">◎</div>
+      <p class="kicker">KROK 2</p>
+      <h2>Zrób zdjęcie partii</h2>
+      <p class="lead">Ustaw kod LOT / batch w kadrze. System odczyta kod i uruchomi dekoder tylko wtedy, gdy będzie potrzebny.</p>
+      <label class="photo-button" for="photoInput">
+        <span class="photo-symbol">◉</span>
+        <span><strong>Otwórz aparat</strong><small>Zdjęcie partii / LOT</small></span>
+        <b>→</b>
+        <input id="photoInput" type="file" accept="image/*" capture="environment">
+      </label>
+      <div id="photoStatus" class="status hidden"></div>
+      <button id="backBtn" class="text-button" type="button">← Zmień produkt</button>
+    </section>
+
+    <section id="screenResult" class="screen">
+      <div id="resultMark" class="result-mark">✓</div>
+      <p class="kicker">WYNIK</p>
+      <h2 id="resultTitle">Partia rozpoznana</h2>
+      <p id="resultLead" class="lead">Wynik ma charakter jednorazowy i nie jest zapisywany.</p>
+
+      <div class="result-grid">
+        <div class="result-main"><small>DATA PRZYDATNOŚCI</small><strong id="expiryValue">—</strong></div>
+        <div><small>PARTIA / LOT</small><strong id="batchValue">—</strong></div>
+        <div><small>DATA PRODUKCJI</small><strong id="productionValue">—</strong></div>
+        <div class="source-card"><small>ŹRÓDŁO INFORMACJI</small><strong id="sourceValue">—</strong><span id="sourceDetail">—</span></div>
+        <div><small>PRODUKT</small><strong id="resultProduct">—</strong></div>
+        <div><small>PEWNOŚĆ</small><strong id="confidenceValue">—</strong></div>
+      </div>
+
+      <button id="nextBtn" class="primary-button" type="button">Skanuj kolejny produkt</button>
+      <button id="retryBtn" class="secondary-button" type="button">Zrób inne zdjęcie</button>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
